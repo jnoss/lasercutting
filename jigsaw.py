@@ -9,8 +9,8 @@ import math
 tau = 2*math.pi
 
 # Number of pieces.
-COLUMN_COUNT = 4
-ROW_COUNT = 4
+COLUMN_COUNT = 3
+ROW_COUNT = 3
 
 # This doesn't matter so much -- you can scale it after importing it into the
 # drawing package.
