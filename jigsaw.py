@@ -5,6 +5,8 @@ This program is in the public domain."""
 
 import random
 import math
+import sys
+import argparse
 
 tau = 2*math.pi
 
@@ -18,7 +20,9 @@ DPI = 96
 WIDTH = COLUMN_COUNT*DPI
 HEIGHT = ROW_COUNT*DPI
 
-CORNER_RADIUS = WIDTH/ROW_COUNT/3.0
+#CORNER_RADIUS = WIDTH/ROW_COUNT/3.0
+#setting this to 0 for square corners
+CORNER_RADIUS = 0
 
 class Vector:
     """2D vector class."""
@@ -164,7 +168,9 @@ def make_knob(out, start, end, color):
     polyline(out, p, color)
 
 def main():
-    out = open("jigsaw.svg", "w")
+    filename = "jigsaw%sx%s.svg" % (COLUMN_COUNT, ROW_COUNT)
+    print "writing out to %s" % filename
+    out = open(filename, "w")
 
     # The header includes the rounded-corner rectangle on the outside of the puzzle.
     write_header(out)
@@ -186,4 +192,17 @@ def main():
     footer(out)
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--columns', help='number of columns',required = False)
+    parser.add_argument('--rows', help='number of rows',required = False)
+    args = parser.parse_args()
+    if (args.columns > 0 and args.rows > 0) :
+        print "c%s r%s" % ( args.columns, args.rows)
+        COLUMN_COUNT=int(args.columns)
+        ROW_COUNT=int(args.rows)
+        main()
+    else:
+        main()
+    sys.exit()
+        
     main()
