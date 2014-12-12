@@ -1,7 +1,11 @@
 #!/usr/bin/python
 
+# source http://www.teamten.com/lawrence/projects/jigsaw-puzzle-on-laser-cutter/
+
 """Generate a jigsaw puzzle pattern for cutting. Written by Lawrence Kesteloot.
 This program is in the public domain."""
+
+
 
 import random
 import math
@@ -12,7 +16,7 @@ tau = 2*math.pi
 
 # Number of pieces.
 COLUMN_COUNT = 3
-ROW_COUNT = 3
+ROW_COUNT = 6
 
 # This doesn't matter so much -- you can scale it after importing it into the
 # drawing package.
@@ -193,13 +197,15 @@ def main():
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--columns', help='number of columns',required = False)
-    parser.add_argument('--rows', help='number of rows',required = False)
+    parser.add_argument('-c','--columns', help='number of columns',required = False)
+    parser.add_argument('-r','--rows', help='number of rows',required = False)
     args = parser.parse_args()
     if (args.columns > 0 and args.rows > 0) :
-        print "c%s r%s" % ( args.columns, args.rows)
+        # print "c%s r%s" % ( args.columns, args.rows)
         COLUMN_COUNT=int(args.columns)
         ROW_COUNT=int(args.rows)
+        WIDTH = COLUMN_COUNT*DPI
+        HEIGHT = ROW_COUNT*DPI
         main()
     else:
         main()
